@@ -1,0 +1,15 @@
+C:\Users\terrycheung\source\repos\Data Load\Data Load\bin\Debug\Data Load.xml
+C:\Users\terrycheung\source\repos\Data Load\Data Load\bin\Debug\Data Load.dll
+C:\Users\terrycheung\source\repos\Data Load\Data Load\bin\Debug\Data Load.pdb
+C:\Users\terrycheung\source\repos\Data Load\Data Load\bin\Debug\Data Load.dll.manifest
+C:\Users\terrycheung\source\repos\Data Load\Data Load\bin\Debug\Data Load.vsto
+C:\Users\terrycheung\source\repos\Data Load\Data Load\bin\Debug\Microsoft.Office.Tools.Common.v4.0.Utilities.dll
+C:\Users\terrycheung\source\repos\Data Load\Data Load\obj\Debug\Data_Load.NamespaceDoc.resources
+C:\Users\terrycheung\source\repos\Data Load\Data Load\obj\Debug\Data_Load.loadInput.resources
+C:\Users\terrycheung\source\repos\Data Load\Data Load\obj\Debug\Data_Load.Properties.Resources.resources
+C:\Users\terrycheung\source\repos\Data Load\Data Load\obj\Debug\Data Load.csproj.GenerateResource.cache
+C:\Users\terrycheung\source\repos\Data Load\Data Load\obj\Debug\Data Load.csproj.CoreCompileInputs.cache
+C:\Users\terrycheung\source\repos\Data Load\Data Load\obj\Debug\Data Load.csproj.CopyComplete
+C:\Users\terrycheung\source\repos\Data Load\Data Load\obj\Debug\Data Load.dll
+C:\Users\terrycheung\source\repos\Data Load\Data Load\obj\Debug\Data Load.pdb
+C:\Users\terrycheung\source\repos\Data Load\Data Load\obj\Debug\Data Load.csprojAssemblyReference.cache

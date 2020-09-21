@@ -1,0 +1,345 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Data Load</name>
+    </assembly>
+    <members>
+        <member name="T:Data_Load.functionality">
+            <summary>
+            Functionality class. Contains all functionality used in the Data Load add-in
+            </summary>
+        </member>
+        <member name="F:Data_Load.functionality.loadbar">
+            <summary>
+            Loading bar used throughout background worker
+            </summary>
+        </member>
+        <member name="F:Data_Load.functionality.backgroundWorker1">
+            <summary>
+            Background worker using separate thread. 
+            Updates loadbar.
+            </summary>
+        </member>
+        <member name="M:Data_Load.functionality.OpenFile(Microsoft.Office.Interop.Excel.Application@,Microsoft.Office.Interop.Excel.Workbook@)">
+            <summary>
+            Opens the file specified in OpenFileDialog and sets a reference to it.
+            </summary>
+            <param name="app">A reference to the excel application</param>
+            <param name="wb">A reference to the workbook to be opened</param>
+            <returns>
+            Returns true if file opened successfully, false if the file returned by Workbooks.Open is null
+            </returns>
+        </member>
+        <member name="M:Data_Load.functionality.getInput(Microsoft.Office.Interop.Excel.Workbook,Microsoft.Office.Interop.Excel.Workbook)">
+            <summary>
+            Creates and runs a background worker to copy input specified by user.
+            </summary>
+            <param name="input">Input workbook specified by user</param>
+            <param name="output">Output workbook as a copy of the template</param>
+        </member>
+        <member name="M:Data_Load.functionality.visibleRows(Microsoft.Office.Interop.Excel.Worksheet)">
+            <summary>
+            Counts all visible rows of the given worksheet
+            </summary>
+            <param name="sheet">Worksheet to be counted</param>
+            <returns>Returns number of rows visible</returns>
+        </member>
+        <member name="M:Data_Load.functionality.postCalc(Microsoft.Office.Interop.Excel.Workbook)">
+            <summary>
+            Main function to write to copy/paste template table to the output sheet.
+            </summary>
+            <param name="output">Output workbook</param>
+        </member>
+        <member name="M:Data_Load.functionality.createOutputBook(Microsoft.Office.Interop.Excel.Workbook)">
+            <summary>
+            Copies and creates a new sheet containing the template
+            </summary>
+            <param name="tempbook">Template workbook to be copied</param>
+            <returns>Returns output workbook with template</returns>
+        </member>
+        <member name="M:Data_Load.functionality.writeTemplate(Microsoft.Office.Interop.Excel.Worksheet,Microsoft.Office.Interop.Excel.Worksheet,System.Int32)">
+            <summary>
+            Writes data given from input worksheet to the template table
+            </summary>
+            <param name="template">Template worksheet containing the worksheet table</param>
+            <param name="input">Input worksheet containing specifications and product data</param>
+            <param name="row">Current row of input worksheet</param>
+        </member>
+        <member name="M:Data_Load.functionality.checkSpec(System.String,Microsoft.Office.Interop.Excel.Worksheet)">
+            <summary>
+            Gets the proper value of average weight depending on given specification.
+            Writes the formula for entered weight if the specification contains capsule or softgel
+            </summary>
+            <param name="spec">Specification string</param>
+            <param name="template">Template Worksheet to write to</param>
+            <returns>Returns the average weight</returns>
+        </member>
+        <member name="M:Data_Load.functionality.unitsFormat(System.String)">
+            <summary>
+            Applies a space in front of the unit in a given specification string
+            </summary>
+            <param name="toformat">Specification string to be formatted</param>
+            <returns>Returns formatted string</returns>
+        </member>
+        <member name="M:Data_Load.functionality.specUnits(System.String)">
+            <summary>
+            Gets the units of the given specification
+            </summary>
+            <param name="spec">Specification to get units</param>
+            <returns>Returns the units of the specification</returns>
+        </member>
+        <member name="M:Data_Load.functionality.specRange(Microsoft.Office.Interop.Excel.Worksheet,System.String)">
+            <summary>
+            Gets the range of values for valid results.
+            Formats the result field according to the range.
+            See <see cref="M:Data_Load.functionality.formatResult(Microsoft.Office.Interop.Excel.Worksheet,System.String)"/> and <see cref="M:Data_Load.functionality.formatResult(Microsoft.Office.Interop.Excel.Worksheet,System.String,System.String)"/> for formatting.
+            </summary>
+            <param name="template">Template worksheet to format</param>
+            <param name="spec">Specification string</param>
+        </member>
+        <member name="M:Data_Load.functionality.setConversion(Microsoft.Office.Interop.Excel.Worksheet,System.String)">
+            <summary>
+            Sets the conversion formula for the result cell
+            </summary>
+            <param name="template">Template worksheet to write the formula</param>
+            <param name="spec">Specification string</param>
+        </member>
+        <member name="M:Data_Load.functionality.getdivision(System.String,Microsoft.Office.Interop.Excel.Range)">
+            <summary>
+            Gets the division factor of the specification
+            </summary>
+            <param name="spec">Specification string</param>
+            <param name="units">Worksheet range with units of the specification</param>
+            <returns>Returns the division factor</returns>
+        </member>
+        <member name="M:Data_Load.functionality.formatResult(Microsoft.Office.Interop.Excel.Worksheet,System.String,System.String)">
+            <summary>
+            Sets the format of the result cell according to the max and min values.
+            </summary>
+            <param name="template">Template worksheet to be written</param>
+            <param name="min">Minimum value accepted</param>
+            <param name="max">Maximum value accepted</param>
+        </member>
+        <member name="M:Data_Load.functionality.formatResult(Microsoft.Office.Interop.Excel.Worksheet,System.String)">
+            <summary>
+            Sets the format of the result cell according to the full specification string
+            </summary>
+            <param name="template">Template worsheet to be written</param>
+            <param name="spec">Specification string</param>
+        </member>
+        <member name="M:Data_Load.functionality.baseUnits(System.String)">
+            <summary>
+            Gets the units of average weight and weight taken
+            </summary>
+            <param name="spec">Specification string</param>
+            <returns>Returns the base unit</returns>
+        </member>
+        <member name="M:Data_Load.functionality.copyTemplate(Microsoft.Office.Interop.Excel.Worksheet,Microsoft.Office.Interop.Excel.Worksheet,System.String,System.String[]@,System.String@)">
+            <summary>
+            Copies the template table and pastes into the given range
+            </summary>
+            <param name="template">Template worksheet to be copied</param>
+            <param name="outsheet">Output worksheet to be pasted</param>
+            <param name="pasteRange">Range to be pasted</param>
+            <param name="prevAdd">Array of previous addresses</param>
+            <param name="prevAR">Previous AR number</param>
+        </member>
+        <member name="M:Data_Load.functionality.backgroundWorker1_DoWork(System.Object,System.ComponentModel.DoWorkEventArgs)">
+            <summary>
+            Background worker purposed to write the given input workbook to the output worksheet
+            </summary>
+            <param name="sender">Method sender</param>
+            <param name="e">Method event args</param>
+        </member>
+        <member name="M:Data_Load.functionality.to2dArray(System.Collections.Generic.List{System.Collections.Generic.List{System.Object}})">
+            <summary>
+            Converts the given nested list to a 2d array
+            </summary>
+            <param name="list">Nested list to be converted</param>
+            <returns>Converted list as a 2d array</returns>
+        </member>
+        <member name="M:Data_Load.functionality.AllBorders(Microsoft.Office.Interop.Excel.Borders)">
+            <summary>
+            Sets all border around a given range
+            </summary>
+            <param name="_borders">Borders to be set</param>
+        </member>
+        <member name="M:Data_Load.functionality.backgroundWorker1_ProgressChanged(System.Object,System.ComponentModel.ProgressChangedEventArgs)">
+            <summary>
+            Triggers when background worker reports progress.
+            Sends the progress percentage given.
+            </summary>
+            <param name="sender">Method sender</param>
+            <param name="e">Method event args</param>
+        </member>
+        <member name="M:Data_Load.functionality.backgroundWorker1_RunWorkerCompleted(System.Object,System.ComponentModel.RunWorkerCompletedEventArgs)">
+            <summary>
+            Triggers when background worker is completed.
+            Closes loading bar and prompts user input is loaded.
+            </summary>
+            <param name="sender">Method sender</param>
+            <param name="e">Method event args</param>
+        </member>
+        <member name="T:Data_Load.loadInput">
+            <summary>
+            loadInput class for loading bar
+            </summary>
+        </member>
+        <member name="M:Data_Load.loadInput.#ctor">
+            <summary>
+            Default contstructor for the loadInput. 
+            Sets the default minimum and maximum of the loading bar.
+            </summary>
+        </member>
+        <member name="F:Data_Load.loadInput.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Data_Load.loadInput.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Data_Load.loadInput.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:Data_Load.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Data_Load.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Data_Load.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="T:Data_Load.NamespaceDoc">
+            <summary>
+            Data Load contains all functionality used for the Add-in.
+            </summary>
+        </member>
+        <member name="T:Data_Load.DataLoad">
+            <summary>
+            Main class containing excel ribbon functionality.
+            Contains the button used to run the Add-in
+            </summary>
+        </member>
+        <member name="M:Data_Load.DataLoad.Ribbon1_Load(System.Object,Microsoft.Office.Tools.Ribbon.RibbonUIEventArgs)">
+            <summary>
+            Unused. Runs when the ribbon is loaded.
+            </summary>
+            <param name="sender">Method sender</param>
+            <param name="e">Method event args</param>
+        </member>
+        <member name="M:Data_Load.DataLoad.postCalc_click(System.Object,Microsoft.Office.Tools.Ribbon.RibbonControlEventArgs)">
+            <summary>
+            Functionality when the postCalc button is clicked.
+            Prompts user to run on the template sheet or select it as input reference.
+            </summary>
+            <param name="sender">Method sender</param>
+            <param name="e">Method event args</param>
+        </member>
+        <member name="F:Data_Load.DataLoad.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Data_Load.DataLoad.#ctor">
+            <summary>
+            Data Load Constructor initializes add in components
+            </summary>
+        </member>
+        <member name="M:Data_Load.DataLoad.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Data_Load.DataLoad.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:Data_Load.ThisRibbonCollection">
+            
+        </member>
+        <member name="M:Data_Load.ThisRibbonCollection.#ctor(Microsoft.Office.Tools.Ribbon.RibbonFactory)">
+            
+        </member>
+        <member name="T:Data_Load.ThisAddIn">
+            
+        </member>
+        <member name="M:Data_Load.ThisAddIn.InternalStartup">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:Data_Load.ThisAddIn.#ctor(Microsoft.Office.Tools.Excel.ApplicationFactory,System.IServiceProvider)">
+            
+        </member>
+        <member name="M:Data_Load.ThisAddIn.Initialize">
+            
+        </member>
+        <member name="M:Data_Load.ThisAddIn.FinishInitialization">
+            
+        </member>
+        <member name="M:Data_Load.ThisAddIn.InitializeDataBindings">
+            
+        </member>
+        <member name="M:Data_Load.ThisAddIn.InitializeCachedData">
+            
+        </member>
+        <member name="M:Data_Load.ThisAddIn.InitializeData">
+            
+        </member>
+        <member name="M:Data_Load.ThisAddIn.BindToData">
+            
+        </member>
+        <member name="M:Data_Load.ThisAddIn.StartCaching(System.String)">
+            
+        </member>
+        <member name="M:Data_Load.ThisAddIn.StopCaching(System.String)">
+            
+        </member>
+        <member name="M:Data_Load.ThisAddIn.IsCached(System.String)">
+            
+        </member>
+        <member name="M:Data_Load.ThisAddIn.BeginInitialization">
+            
+        </member>
+        <member name="M:Data_Load.ThisAddIn.EndInitialization">
+            
+        </member>
+        <member name="M:Data_Load.ThisAddIn.InitializeControls">
+            
+        </member>
+        <member name="M:Data_Load.ThisAddIn.InitializeComponents">
+            
+        </member>
+        <member name="M:Data_Load.ThisAddIn.NeedsFill(System.String)">
+            
+        </member>
+        <member name="M:Data_Load.ThisAddIn.OnShutdown">
+            
+        </member>
+        <member name="T:Data_Load.Globals">
+            
+        </member>
+        <member name="M:Data_Load.Globals.#ctor">
+            
+        </member>
+    </members>
+</doc>
